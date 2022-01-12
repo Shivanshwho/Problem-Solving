@@ -55,8 +55,9 @@ class Solution
     {
       vector<int>ans;
       if(!root)return ans;
+    //   return {};
       helper(root,0,ans);
-      return ans;
+    //   return ans;
     }
 };
 
