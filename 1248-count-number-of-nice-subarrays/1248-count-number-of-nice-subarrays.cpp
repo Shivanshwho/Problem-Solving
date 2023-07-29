@@ -2,24 +2,28 @@ class Solution {
 public:
     int numberOfSubarrays(vector<int>& nums, int k) {
         int n = nums.size();
-        deque<int>dq;
-        dq.push_front(-1);
+        int l=0,r=0;
+        int cnt=0,odd=0;
         int ans=0;
-        for(int i=0;i<nums.size();i++)
+        while(r<n)
         {
-            if(nums[i]%2)
+            if(nums[r]%2)
             {
-                dq.push_back(i);
+                cnt=0;
+                odd++;
             }
-            if(dq.size()>k+1)
+            while(odd==k)
             {
-                dq.pop_front();
+                cnt++;
+                if(nums[l++]%2)
+                {
+                    odd--;
+                }
             }
-            if(dq.size()==k+1)
-            {
-                ans+=(dq[1]-dq[0]);
-            }
+            ans+=cnt;
+            r++;
         }
         return ans;
+        
     }
 };
