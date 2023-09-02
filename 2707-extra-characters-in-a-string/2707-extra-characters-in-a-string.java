@@ -4,7 +4,8 @@ class Solution {
         int[] dp = new int[n + 1]; // dp[i] represents the minimum number of extra characters for the substring s[0:i]
         Arrays.fill(dp, Integer.MAX_VALUE); // Initialize dp with maximum values to find the minimum later.
         dp[0] = 0; // There are no extra characters in an empty substring.
-
+//leetscode
+//["lead",leet","code","leetcode"]
         for (int i = 1; i <= n; i++) { // Iterate through the string s from the beginning.
             for (String word : dictionary) { // Check each word in the dictionary.
                 int len = word.length(); // Get the length of the current dictionary word.
@@ -21,3 +22,4 @@ class Solution {
         return dp[n]; // The result is stored in dp[n], representing the minimum extra characters for the entire string.
     }
 }
+///leet
