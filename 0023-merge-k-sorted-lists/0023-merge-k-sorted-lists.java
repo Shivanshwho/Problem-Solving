@@ -1,46 +1,32 @@
+import java.util.PriorityQueue;
+
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
-        if (lists == null || lists.length == 0) {
-            return null;
+        // Create a priority queue (min-heap) with a custom comparator
+        PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val);
+
+        // Add the first node from each list to the min-heap
+        for (ListNode list : lists) {
+            if (list != null) {
+                minHeap.offer(list);
+            }
         }
-        return mergeKListsHelper(lists, 0, lists.length - 1);
-    }
-    
-    private ListNode mergeKListsHelper(ListNode[] lists, int start, int end) {
-        if (start == end) {
-            return lists[start];
-        }
-        
-        int mid = start + (end - start) / 2;
-        ListNode left = mergeKListsHelper(lists, start, mid);
-        ListNode right = mergeKListsHelper(lists, mid + 1, end);
-        
-        return mergeTwoLists(left, right);
-    }
-    
-    private ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+
+        // Create a dummy node to simplify the code
         ListNode dummy = new ListNode(0);
         ListNode current = dummy;
-        
-        while (l1 != null && l2 != null) {
-            if (l1.val < l2.val) {
-                current.next = l1;
-                l1 = l1.next;
-            } else {
-                current.next = l2;
-                l2 = l2.next;
-            }
+
+        // Merge nodes from the min-heap until it's empty
+        while (!minHeap.isEmpty()) {
+            ListNode node = minHeap.poll();
+            current.next = node;
             current = current.next;
+
+            if (node.next != null) {
+                minHeap.offer(node.next);
+            }
         }
-        
-        if (l1 != null) {
-            current.next = l1;
-        }
-        
-        if (l2 != null) {
-            current.next = l2;
-        }
-        
+
         return dummy.next;
     }
 }
